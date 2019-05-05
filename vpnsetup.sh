@@ -33,12 +33,6 @@ YOUR_PASSWORD='test'
 
 # =====================================================
 
-YOUR_IPSEC_PSK='hahaguo'
-YOUR_USERNAME='test'
-YOUR_PASSWORD='test'
-
-# =====================================================
-
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 SYS_DT=$(date +%F-%T)
 
