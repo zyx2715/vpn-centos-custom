@@ -1,35 +1,7 @@
-#!/bin/sh
-#
-# Script for automatic setup of an IPsec VPN server on CentOS/RHEL 6 and 7.
-# Works on any dedicated server or virtual private server (VPS) except OpenVZ.
-#
-# DO NOT RUN THIS SCRIPT ON YOUR PC OR MAC!
-#
-# The latest version of this script is available at:
-# https://github.com/hwdsl2/setup-ipsec-vpn
-#
-# Copyright (C) 2015-2019 Lin Song <linsongui@gmail.com>
-# Based on the work of Thomas Sarlandie (Copyright 2012)
-#
-# This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
-# Unported License: http://creativecommons.org/licenses/by-sa/3.0/
-#
-# Attribution required: please include my name in any derivative and let me
-# know how you have improved it!
-
-# =====================================================
-
-# Define your own values for these variables
-# - IPsec pre-shared key, VPN username and password
-# - All values MUST be placed inside 'single quotes'
-# - DO NOT use these special characters within values: \ " '
 
 YOUR_IPSEC_PSK='hahaguo'
 YOUR_USERNAME='test'
 YOUR_PASSWORD='test'
-
-# Important notes:   https://git.io/vpnnotes
-# Setup VPN clients: https://git.io/vpnclients
 
 # =====================================================
 
