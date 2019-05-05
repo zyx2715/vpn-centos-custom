@@ -24,9 +24,20 @@
 # - All values MUST be placed inside 'single quotes'
 # - DO NOT use these special characters within values: \ " '
 
-YOUR_IPSEC_PSK='hahaguo'
-YOUR_USERNAME='test'
-YOUR_PASSWORD='test'
+#YOUR_IPSEC_PSK='hahaguo'
+#YOUR_USERNAME='test'
+#YOUR_PASSWORD='test'
+
+echo DO NOT use these special characters within values:"/""'"'"'
+read -p "Please Input Your IPSEC PSK:" -s  CLIENT_IPSEC_PSK
+YOUR_IPSEC_PSK="'$CLIENT_IPSEC_PSK'"
+#echo $YOUR_IPSEC_PSK
+read -p "Please Input Your Username:" -s  CLIENT_USERNAME
+YOUR_USERNAME="'$CLIENT_USERNAME'"
+#echo $YOUR_USERNAME
+read -p "Please Input Your Password:" -s  CLIENT_PASSWORD
+YOUR_USERNAME="'$CLIENT_PASSWORD'"
+#echo $YOUR_USERNAME
 
 # Important notes:   https://git.io/vpnnotes
 # Setup VPN clients: https://git.io/vpnclients
