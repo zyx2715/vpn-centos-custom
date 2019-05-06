@@ -5,14 +5,12 @@
 #
 # DO NOT RUN THIS SCRIPT ON YOUR PC OR MAC!
 #
-# The latest version of this script is available at:
-# https://github.com/hwdsl2/setup-ipsec-vpn
+# This edition increase customized PSK,username,password option which allow
+# users to choose.
 #
-# Copyright (C) 2015-2019 Lin Song <linsongui@gmail.com>
+# Copyright (C) 2019 Zang <zyx2715@163.com>
+# Based on the work of Lin Song (Copyright 2015-2019)
 # Based on the work of Thomas Sarlandie (Copyright 2012)
-#
-# This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
-# Unported License: http://creativecommons.org/licenses/by-sa/3.0/
 #
 # Attribution required: please include my name in any derivative and let me
 # know how you have improved it!
@@ -24,23 +22,51 @@
 # - All values MUST be placed inside 'single quotes'
 # - DO NOT use these special characters within values: \ " '
 
-#YOUR_IPSEC_PSK='hahaguo'
-#YOUR_USERNAME='test'
-#YOUR_PASSWORD='test'
+echo -e "\n"
+echo "#*********************************************#"
+echo "#       Please Choose Following Settings      #"
+echo "#*********************************************#"
 
-echo DO NOT use these special characters within values:"/""'"'"'
+PS3="Please Choose How To Set Your PSK,Username and Password":
+select opt in "RandomPSK,Username,Password" "CustomPSK,Username,Password"
+do
+case $opt in
+RandomPSK,Username,Password )
+YOUR_IPSEC_PSK=''
+YOUR_USERNAME=''
+YOUR_PASSWORD=''
+echo "PSK,Username And Password Will Be Random."
+sleep 1
+break
+;;
+
+CustomPSK,Username,Password )
+echo Do NOT use these special characters within values:"/""'"'"'
 read -p "Please Input Your IPSEC PSK:" -s  CLIENT_IPSEC_PSK
-YOUR_IPSEC_PSK="'$CLIENT_IPSEC_PSK'"
-#echo $YOUR_IPSEC_PSK
+echo $CLIENT_IPSEC_PSK
 read -p "Please Input Your Username:" -s  CLIENT_USERNAME
-YOUR_USERNAME="'$CLIENT_USERNAME'"
-#echo $YOUR_USERNAME
+echo $CLIENT_USERNAME
 read -p "Please Input Your Password:" -s  CLIENT_PASSWORD
-YOUR_USERNAME="'$CLIENT_PASSWORD'"
-#echo $YOUR_USERNAME
+echo $CLIENT_PASSWORD
+read -p "Please Confirm your Settings[y/n]:" -s option
+  if [ "$option" == "y" ];then
+    echo "\n"
+    echo "The Custom Settings Will Be Used......"
+    YOUR_IPSEC_PSK=$CLIENT_IPSEC_PSK
+    YOUR_USERNAME=$CLIENT_USERNAME
+    YOUR_PASSWORD=$CLIENT_PASSWORD
+    break
+  elif [ "$option" == "n" ];then
+    echo "The Custom Settings Will Not Be Used,Please Choose Again......"
+  else
+    exiterr "y && n Requested for confirming......"
+  fi
+sleep 1
+;;
 
-# Important notes:   https://git.io/vpnnotes
-# Setup VPN clients: https://git.io/vpnclients
+esac
+
+done
 
 # =====================================================
 
@@ -92,6 +118,8 @@ fi
 [ -n "$YOUR_IPSEC_PSK" ] && VPN_IPSEC_PSK="$YOUR_IPSEC_PSK"
 [ -n "$YOUR_USERNAME" ] && VPN_USER="$YOUR_USERNAME"
 [ -n "$YOUR_PASSWORD" ] && VPN_PASSWORD="$YOUR_PASSWORD"
+
+echo $VPN_IPSEC_PSK $VPN_USER $VPN_PASSWORD
 
 if [ -z "$VPN_IPSEC_PSK" ] && [ -z "$VPN_USER" ] && [ -z "$VPN_PASSWORD" ]; then
   bigecho "VPN credentials not set by user. Generating random PSK and password..."
