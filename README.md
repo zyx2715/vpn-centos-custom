@@ -1,6 +1,6 @@
 # vpn-centos-custom
  
- This edition increase customized PSK,username,password option which allow users to choose.
+ This edition increases customized PSK,username,password option which allows users choose.
  
  For CentOS 6 & 7
  
