@@ -24,9 +24,55 @@
 # - All values MUST be placed inside 'single quotes'
 # - DO NOT use these special characters within values: \ " '
 
+echo -e "\n"
+echo "#*********************************************#"
+echo "#       Please Choose Following Settings      #"
+echo "#*********************************************#"
+
+PS3="Please Choose How To Set Your PSK,Username and Password":
+select opt in "RandomPSK,Username,Password" "CustomPSK,Username,Password"
+do
+case $opt in
+RandomPSK,Username,Password )
 YOUR_IPSEC_PSK=''
 YOUR_USERNAME=''
 YOUR_PASSWORD=''
+echo "PSK,Username And Password Will Be Random."
+sleep 1
+break
+;;
+
+CustomPSK,Username,Password )
+echo Do NOT use these special characters within values:"/""'"'"'
+read -p "Please Input Your IPSEC PSK:" -s  CLIENT_IPSEC_PSK
+echo $CLIENT_IPSEC_PSK
+read -p "Please Input Your Username:" -s  CLIENT_USERNAME
+echo $CLIENT_USERNAME
+read -p "Please Input Your Password:" -s  CLIENT_PASSWORD
+echo $CLIENT_PASSWORD
+read -p "Please Confirm your Settings[y/n]:" -s option
+  if [ "$option" == "y" ];then
+    echo "\n"
+    echo "The Custom Settings Will Be Used......"
+    YOUR_IPSEC_PSK=$CLIENT_IPSEC_PSK
+    YOUR_USERNAME=$CLIENT_USERNAME
+    YOUR_PASSWORD=$CLIENT_PASSWORD
+    break
+  elif [ "$option" == "n" ];then
+    echo "The Custom Settings Will Not Be Used,Please Choose Again......"
+  else
+    exiterr "y && n Requested for confirming......"
+  fi
+sleep 1
+;;
+
+esac
+
+done
+
+#YOUR_IPSEC_PSK=''
+#YOUR_USERNAME=''
+#YOUR_PASSWORD=''
 
 # VPN client setup: https://vpnsetup.net/clients
 
